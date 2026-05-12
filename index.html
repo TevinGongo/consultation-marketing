@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Consultation Marketing — Tevin Gongo</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='12' fill='%230F0F0F'/><text x='50' y='68' font-family='Georgia,serif' font-size='56' font-weight='bold' fill='%23C9A96E' text-anchor='middle'>TG</text></svg>">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -952,6 +953,28 @@
             <input type="text" name="produit_service" required placeholder="Décrivez brièvement votre offre principale">
         </div>
 
+        <div class="field-row">
+            <div class="field-group">
+                <label>Comment vendez-vous ? <span class="required">*</span></label>
+                <select name="mode_vente" required>
+                    <option value="" disabled selected>Sélectionnez</option>
+                    <option value="en_ligne">En ligne</option>
+                    <option value="en_presentiel">En présentiel</option>
+                    <option value="hybride">Hybride (en ligne + présentiel)</option>
+                </select>
+            </div>
+            <div class="field-group">
+                <label>Quelle est la fourchette de prix de votre offre principale ?</label>
+                <input type="text" name="fourchette_prix" placeholder="Ex : 80 €/séance, 2 000 €/programme, 150 €/mois...">
+            </div>
+        </div>
+
+        <div class="field-group">
+            <label>Citez 2 ou 3 concurrents ou alternatives que vos clients considèrent</label>
+            <p class="field-hint">Cela m'aide à comprendre votre positionnement et votre environnement concurrentiel.</p>
+            <textarea name="concurrents" placeholder="Noms, sites web, ou simplement le type d'alternative (ex : 'les coachs en ligne sur Instagram', 'le cabinet X dans ma ville')"></textarea>
+        </div>
+
         <div class="field-group">
             <label>Site web <span class="optional-tag">recommandé</span></label>
             <input type="url" name="site_web" placeholder="https://www.votresite.com">
@@ -1005,8 +1028,8 @@
         </div>
 
         <div class="field-group">
-            <label>En une ou deux phrases, décrivez votre client idéal</label>
-            <textarea name="client_ideal" placeholder="Qui sont vos meilleurs clients ? Quelles sont leurs caractéristiques ?"></textarea>
+            <label>Pensez à votre meilleur client. Comment vous a-t-il trouvé et pourquoi vous a-t-il choisi ?</label>
+            <textarea name="client_ideal" placeholder="Comment ce client est-il arrivé jusqu'à vous ? Qu'est-ce qui l'a convaincu de travailler avec vous plutôt qu'avec quelqu'un d'autre ?"></textarea>
         </div>
     </div>
 
@@ -1071,6 +1094,27 @@
                 <option value="prefere_ne_pas_repondre">Je préfère ne pas répondre</option>
             </select>
         </div>
+
+        <div class="field-group">
+            <label>Quels outils marketing utilisez-vous actuellement ?</label>
+            <p class="field-hint">CRM, email marketing, outil de réservation, gestion des réseaux sociaux, outil de facturation, etc.</p>
+            <textarea name="outils_marketing" placeholder="Ex : Mailchimp pour les emails, Calendly pour les réservations, Canva pour les visuels, rien de particulier..."></textarea>
+        </div>
+
+        <div class="field-group">
+            <label>Quel budget consacrez-vous actuellement au marketing par mois ? <span class="optional-tag">optionnel</span></label>
+            <p class="field-hint">Cette information reste strictement confidentielle. Elle me permet de proposer des solutions réalistes par rapport à vos moyens.</p>
+            <select name="budget_marketing">
+                <option value="" disabled selected>Sélectionnez</option>
+                <option value="aucun">Aucun budget dédié</option>
+                <option value="moins_200">Moins de 200 €</option>
+                <option value="200_500">200 € — 500 €</option>
+                <option value="500_1000">500 € — 1 000 €</option>
+                <option value="1000_3000">1 000 € — 3 000 €</option>
+                <option value="plus_3000">Plus de 3 000 €</option>
+                <option value="prefere_ne_pas_repondre">Je préfère ne pas répondre</option>
+            </select>
+        </div>
     </div>
 
     <!-- ===== SECTION 3 : VOTRE PROBLÉMATIQUE ===== -->
@@ -1090,6 +1134,7 @@
                 <label class="choice-item"><input type="radio" name="categorie" value="reseaux_sociaux"> Optimiser ma présence sur les réseaux sociaux</label>
                 <label class="choice-item"><input type="radio" name="categorie" value="offre_positionnement"> Clarifier ou repositionner mon offre</label>
                 <label class="choice-item"><input type="radio" name="categorie" value="visibilite_seo"> Améliorer ma visibilité en ligne (SEO / référencement)</label>
+                <label class="choice-item"><input type="radio" name="categorie" value="fidelisation"> Fidéliser ou développer mes clients existants</label>
                 <label class="choice-item"><input type="radio" name="categorie" value="autre_problematique"> Autre</label>
             </div>
 
@@ -1102,15 +1147,34 @@
             </div>
         </div>
 
+        <div class="field-group" id="categorieAutreGroup" style="display:none;">
+            <label>Précisez votre problématique <span class="required">*</span></label>
+            <input type="text" name="categorie_autre" placeholder="Décrivez brièvement la catégorie de votre problématique">
+        </div>
+
         <div class="field-group">
             <label>Décrivez en détail la problématique que vous souhaitez aborder lors de notre session <span class="required">*</span></label>
             <p class="field-hint">Soyez le plus précis et détaillé possible. Plus je comprends votre situation en amont, plus notre échange sera productif et concret.</p>
             <textarea class="large" name="description_problematique" required placeholder="Décrivez votre problématique, son contexte, depuis quand elle persiste, ce que vous avez déjà tenté..."></textarea>
         </div>
 
+        <div class="field-row">
+            <div class="field-group">
+                <label>Dans quel délai souhaitez-vous voir des résultats ?</label>
+                <select name="delai_resultats">
+                    <option value="" disabled selected>Sélectionnez</option>
+                    <option value="immediatement">Immédiatement</option>
+                    <option value="dans_le_mois">Dans le mois</option>
+                    <option value="3_mois">Dans les 3 prochains mois</option>
+                    <option value="6_mois">Dans les 6 prochains mois</option>
+                    <option value="pas_de_deadline">Pas de deadline précise</option>
+                </select>
+            </div>
+        </div>
+
         <div class="field-group">
-            <label>Qu'avez-vous déjà tenté pour résoudre cette problématique ?</label>
-            <textarea name="tentatives_resolution" placeholder="Actions déjà entreprises, outils testés, stratégies tentées..."></textarea>
+            <label>Où voulez-vous que votre entreprise soit dans 6 mois ?</label>
+            <textarea name="objectif_6_mois" placeholder="Décrivez concrètement la situation idéale pour votre entreprise dans 6 mois : revenus, nombre de clients, positionnement, mode de vie..."></textarea>
         </div>
 
         <div class="field-group">
@@ -1253,6 +1317,7 @@
         radio.addEventListener('change', function() {
             document.getElementById('reminderSocial').classList.toggle('show', this.value === 'reseaux_sociaux');
             document.getElementById('reminderSEO').classList.toggle('show', this.value === 'visibilite_seo');
+            document.getElementById('categorieAutreGroup').style.display = this.value === 'autre_problematique' ? 'block' : 'none';
         });
     });
 
@@ -1310,7 +1375,7 @@
         });
 
         const phaseLabels = { lancement: 'En lancement', croissance: 'En croissance', stagnation: 'En stagnation', difficulte: 'En difficulté', repositionnement: 'En repositionnement' };
-        const categorieLabels = { trouver_clients: 'Trouver plus de clients', tunnel_vente: 'Structurer mon tunnel de vente', reseaux_sociaux: 'Optimiser ma présence sur les réseaux sociaux', offre_positionnement: 'Clarifier ou repositionner mon offre', visibilite_seo: 'Améliorer ma visibilité en ligne (SEO / référencement)', autre_problematique: 'Autre' };
+        const categorieLabels = { trouver_clients: 'Trouver plus de clients', tunnel_vente: 'Structurer mon tunnel de vente', reseaux_sociaux: 'Optimiser ma présence sur les réseaux sociaux', offre_positionnement: 'Clarifier ou repositionner mon offre', visibilite_seo: 'Améliorer ma visibilité en ligne (SEO / référencement)', fidelisation: 'Fidéliser ou développer mes clients existants', autre_problematique: 'Autre' };
 
         const phaseVal = this.querySelector('input[name="phase"]:checked')?.value || '';
         const categorieVal = this.querySelector('input[name="categorie"]:checked')?.value || '';
@@ -1321,6 +1386,9 @@
             entreprise: this.entreprise.value,
             secteur: this.secteur.value === 'autre' ? this.secteur_autre?.value || 'Autre' : this.secteur.options[this.secteur.selectedIndex]?.text || '',
             produit_service: this.produit_service.value,
+            mode_vente: this.mode_vente.options[this.mode_vente.selectedIndex]?.text || '',
+            fourchette_prix: this.fourchette_prix.value || 'Non renseigné',
+            concurrents: this.concurrents.value || 'Non renseigné',
             site_web: this.site_web.value || 'Non renseigné',
             instagram: this.instagram.value || 'Non renseigné',
             facebook: this.facebook.value || 'Non renseigné',
@@ -1335,9 +1403,12 @@
             ce_qui_a_marche: this.ce_qui_a_marche.value || 'Non renseigné',
             ce_qui_na_pas_marche: this.ce_qui_na_pas_marche.value || 'Non renseigné',
             chiffre_affaires: this.chiffre_affaires.value ? this.chiffre_affaires.options[this.chiffre_affaires.selectedIndex]?.text : 'Non renseigné',
-            categorie_problematique: categorieLabels[categorieVal] || categorieVal,
+            outils_marketing: this.outils_marketing.value || 'Non renseigné',
+            budget_marketing: this.budget_marketing.value ? this.budget_marketing.options[this.budget_marketing.selectedIndex]?.text : 'Non renseigné',
+            categorie_problematique: categorieVal === 'autre_problematique' ? 'Autre : ' + (this.categorie_autre?.value || '') : (categorieLabels[categorieVal] || categorieVal),
             description_problematique: this.description_problematique.value,
-            tentatives_resolution: this.tentatives_resolution.value || 'Non renseigné',
+            delai_resultats: this.delai_resultats.value ? this.delai_resultats.options[this.delai_resultats.selectedIndex]?.text : 'Non renseigné',
+            objectif_6_mois: this.objectif_6_mois.value || 'Non renseigné',
             resultat_ideal: this.resultat_ideal.value,
             impact_scale: document.getElementById('impactScale').value || 'Non renseigné',
             lien_ressource: this.lien_ressource.value || 'Non renseigné',
@@ -1372,8 +1443,12 @@
             'Entreprise : ' + data.entreprise,
             'Secteur : ' + data.secteur,
             'Produit/Service : ' + data.produit_service,
+            'Mode de vente : ' + data.mode_vente,
+            'Fourchette de prix : ' + data.fourchette_prix,
             'Ancienneté : ' + data.anciennete,
             'Équipe : ' + data.equipe,
+            '',
+            'Concurrents/Alternatives : ' + data.concurrents,
             '',
             'Site web : ' + data.site_web,
             'Instagram : ' + data.instagram,
@@ -1381,13 +1456,15 @@
             'LinkedIn : ' + data.linkedin,
             'TikTok : ' + data.tiktok,
             '',
-            'Client idéal : ' + data.client_ideal,
+            'Meilleur client (comment trouvé, pourquoi choisi) : ' + data.client_ideal,
             '',
             '── 2. SITUATION ACTUELLE ──',
             'Phase : ' + data.phase,
             'Canaux : ' + data.canaux,
             'Canal principal : ' + data.canal_principal,
             'CA mensuel : ' + data.chiffre_affaires,
+            'Budget marketing mensuel : ' + data.budget_marketing,
+            'Outils marketing : ' + data.outils_marketing,
             '',
             '✅ Ce qui a fonctionné :',
             data.ce_qui_a_marche,
@@ -1398,14 +1475,16 @@
             '── 3. PROBLÉMATIQUE ──',
             'Catégorie : ' + data.categorie_problematique,
             'Impact : ' + data.impact_scale + '/10',
+            'Délai souhaité : ' + data.delai_resultats,
             '',
             '📌 Description :',
             data.description_problematique,
             '',
-            'Déjà tenté : ' + data.tentatives_resolution,
-            '',
-            '🎯 Résultat idéal :',
+            '🎯 Résultat idéal de la session :',
             data.resultat_ideal,
+            '',
+            '📍 Objectif à 6 mois :',
+            data.objectif_6_mois,
             '',
             '── 4. COMPLÉMENTS ──',
             'Lien ressource : ' + data.lien_ressource,
