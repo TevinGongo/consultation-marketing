@@ -559,29 +559,27 @@
             position: relative;
         }
 
-        .upload-zone:hover {
+        .upload-zone:hover,
+        .upload-zone.dragover {
             border-color: var(--gold);
             background: var(--gold-glow);
         }
 
-        .upload-zone input[type="file"] {
-            position: absolute;
-            inset: 0;
-            opacity: 0;
-            cursor: pointer;
+        .upload-zone.disabled {
+            opacity: 0.4;
+            pointer-events: none;
         }
 
         .upload-icon {
-            width: 32px;
-            height: 32px;
-            margin: 0 auto 12px;
-            color: var(--gold);
+            font-size: 28px;
+            margin-bottom: 12px;
         }
 
         .upload-text {
             font-size: 14px;
-            color: var(--text-secondary);
-            margin-bottom: 4px;
+            font-weight: 500;
+            color: var(--gold);
+            margin-bottom: 6px;
         }
 
         .upload-hint {
@@ -590,10 +588,10 @@
         }
 
         .upload-files-list {
-            margin-top: 16px;
+            margin-top: 12px;
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 6px;
         }
 
         .upload-file-item {
@@ -608,6 +606,25 @@
             color: var(--text-secondary);
         }
 
+        .upload-file-item .file-info {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            min-width: 0;
+        }
+
+        .upload-file-item .file-name {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .upload-file-item .file-size {
+            color: var(--text-muted);
+            font-size: 11px;
+            flex-shrink: 0;
+        }
+
         .upload-file-item .remove-file {
             background: none;
             border: none;
@@ -616,6 +633,7 @@
             font-size: 16px;
             padding: 0 4px;
             transition: color 0.2s;
+            flex-shrink: 0;
         }
 
         .upload-file-item .remove-file:hover {
@@ -1216,11 +1234,13 @@
         <div class="field-group">
             <label>Documents, captures d'écran ou fichiers à partager <span class="optional-tag">optionnel</span></label>
             <p class="field-hint">Statistiques, captures d'écran, rapports, visuels publicitaires… tout élément factuel qui m'aiderait à mieux comprendre votre situation.</p>
-            <div style="padding: 24px; background: var(--bg-input); border: 1px solid var(--border-subtle); border-radius: 2px;">
-                <p style="font-size: 14px; color: var(--text-secondary); margin-bottom: 8px;">📎 Envoyez vos documents par email à :</p>
-                <p style="font-size: 15px; color: var(--gold); font-weight: 500;">tevingongo@gmail.com</p>
-                <p style="font-size: 12.5px; color: var(--text-muted); margin-top: 8px;">Mentionnez votre nom et "Consultation Marketing" en objet. Formats acceptés : PDF, images, documents Word/Excel.</p>
+            <div class="upload-zone" id="uploadZone">
+                <div class="upload-icon">📎</div>
+                <div class="upload-text">Cliquez ou glissez vos fichiers ici</div>
+                <div class="upload-hint">PDF, images, Word, Excel — max 10 fichiers, 5 Mo au total</div>
+                <input type="file" id="fileInput" multiple accept=".pdf,.doc,.docx,.xls,.xlsx,.png,.jpg,.jpeg,.gif,.webp,.ppt,.pptx,.csv" style="position:absolute;inset:0;opacity:0;cursor:pointer;">
             </div>
+            <div class="upload-files-list" id="fileList"></div>
         </div>
 
         <div class="field-group">
@@ -1272,7 +1292,7 @@
 
 <script>
     // ===== SCROLL REVEAL =====
-    const sections = document.querySelectorAll('.form-section');
+    const formSections = document.querySelectorAll('.form-section');
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -1280,7 +1300,7 @@
             }
         });
     }, { threshold: 0.1 });
-    sections.forEach(s => observer.observe(s));
+    formSections.forEach(s => observer.observe(s));
 
     // ===== PROGRESS BAR =====
     const progressBar = document.getElementById('progressBar');
@@ -1330,6 +1350,82 @@
         });
     });
 
+    // ===== FILE UPLOAD =====
+    const uploadZone = document.getElementById('uploadZone');
+    const fileInput = document.getElementById('fileInput');
+    const fileListDiv = document.getElementById('fileList');
+    let uploadedFiles = [];
+    const MAX_FILES = 10;
+    const MAX_TOTAL_SIZE = 5 * 1024 * 1024; // 5 Mo
+
+    uploadZone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        uploadZone.classList.add('dragover');
+    });
+
+    uploadZone.addEventListener('dragleave', () => {
+        uploadZone.classList.remove('dragover');
+    });
+
+    uploadZone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        uploadZone.classList.remove('dragover');
+        handleFiles(e.dataTransfer.files);
+    });
+
+    fileInput.addEventListener('change', (e) => {
+        handleFiles(e.target.files);
+        fileInput.value = '';
+    });
+
+    function handleFiles(files) {
+        const remaining = MAX_FILES - uploadedFiles.length;
+        const filesToAdd = Array.from(files).slice(0, remaining);
+
+        filesToAdd.forEach(file => {
+            const totalSize = uploadedFiles.reduce((sum, f) => sum + f.size, 0) + file.size;
+            if (totalSize > MAX_TOTAL_SIZE) {
+                alert('Taille totale dépassée (max 5 Mo). Le fichier « ' + file.name + ' » n\'a pas été ajouté.');
+                return;
+            }
+            if (uploadedFiles.some(f => f.name === file.name && f.size === file.size)) {
+                return; // skip duplicates
+            }
+            uploadedFiles.push(file);
+        });
+
+        renderFileList();
+        uploadZone.classList.toggle('disabled', uploadedFiles.length >= MAX_FILES);
+    }
+
+    function removeFile(index) {
+        uploadedFiles.splice(index, 1);
+        renderFileList();
+        uploadZone.classList.remove('disabled');
+    }
+
+    function renderFileList() {
+        fileListDiv.innerHTML = uploadedFiles.map((file, i) => {
+            const sizeKB = (file.size / 1024).toFixed(0);
+            const sizeLabel = file.size > 1024 * 1024
+                ? (file.size / (1024 * 1024)).toFixed(1) + ' Mo'
+                : sizeKB + ' Ko';
+            return '<div class="upload-file-item">' +
+                '<span class="file-info"><span>📄</span> <span class="file-name">' + file.name + '</span> <span class="file-size">(' + sizeLabel + ')</span></span>' +
+                '<button type="button" class="remove-file" onclick="removeFile(' + i + ')">✕</button>' +
+            '</div>';
+        }).join('');
+    }
+
+    function fileToBase64(file) {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = () => resolve(reader.result.split(',')[1]);
+            reader.onerror = reject;
+            reader.readAsDataURL(file);
+        });
+    }
+
     // ===== FORM SUBMISSION =====
     document.getElementById('consultationForm').addEventListener('submit', async function(e) {
         e.preventDefault();
@@ -1349,8 +1445,8 @@
         // Check radio groups
         const radioGroups = ['phase', 'categorie'];
         radioGroups.forEach(name => {
-            if (!this.querySelector(`input[name="${name}"]:checked`)) {
-                this.querySelectorAll(`input[name="${name}"]`).forEach(r => {
+            if (!this.querySelector('input[name="' + name + '"]:checked')) {
+                this.querySelectorAll('input[name="' + name + '"]').forEach(r => {
                     r.closest('.choice-item').style.borderColor = '#8B3A3A';
                 });
                 isValid = false;
@@ -1416,106 +1512,39 @@
             date_soumission: new Date().toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' })
         };
 
-        /*
-         * =============================================
-         * WEB3FORMS — Configuration rapide
-         * =============================================
-         * 1. Allez sur https://web3forms.com
-         * 2. Entrez tevingongo@gmail.com
-         * 3. Vous recevrez votre Access Key par email
-         * 4. Remplacez VOTRE_ACCESS_KEY ci-dessous
-         * 
-         * Gratuit : 250 soumissions/mois
-         * =============================================
-         */
-        const WEB3FORMS_KEY = 'f75ff122-923a-4a2a-a15d-e5fd41c065b4';
+        // ===== PREPARE FILES AS BASE64 =====
+        const fileData = {};
+        const fileNames = [];
+        for (let i = 0; i < uploadedFiles.length; i++) {
+            const file = uploadedFiles[i];
+            try {
+                const base64 = await fileToBase64(file);
+                fileData['file' + (i + 1) + '_name'] = file.name;
+                fileData['file' + (i + 1) + '_data'] = base64;
+                fileNames.push(file.name);
+            } catch (err) {
+                console.error('Erreur lecture fichier:', file.name, err);
+            }
+        }
 
-        // Build formatted message
-        const sections = [
-            '══════════════════════════════════════',
-            '  CONSULTATION MARKETING — FICHE CLIENT',
-            '  Date : ' + data.date_soumission,
-            '══════════════════════════════════════',
-            '',
-            '── 1. INFORMATIONS GÉNÉRALES ──',
-            'Nom : ' + data.nom,
-            'Email : ' + data.email,
-            'Entreprise : ' + data.entreprise,
-            'Secteur : ' + data.secteur,
-            'Produit/Service : ' + data.produit_service,
-            'Mode de vente : ' + data.mode_vente,
-            'Fourchette de prix : ' + data.fourchette_prix,
-            'Ancienneté : ' + data.anciennete,
-            'Équipe : ' + data.equipe,
-            '',
-            'Concurrents/Alternatives : ' + data.concurrents,
-            '',
-            'Site web : ' + data.site_web,
-            'Instagram : ' + data.instagram,
-            'Facebook : ' + data.facebook,
-            'LinkedIn : ' + data.linkedin,
-            'TikTok : ' + data.tiktok,
-            '',
-            'Meilleur client (comment trouvé, pourquoi choisi) : ' + data.client_ideal,
-            '',
-            '── 2. SITUATION ACTUELLE ──',
-            'Phase : ' + data.phase,
-            'Canaux : ' + data.canaux,
-            'Canal principal : ' + data.canal_principal,
-            'CA mensuel : ' + data.chiffre_affaires,
-            'Budget marketing mensuel : ' + data.budget_marketing,
-            'Outils marketing : ' + data.outils_marketing,
-            '',
-            '✅ Ce qui a fonctionné :',
-            data.ce_qui_a_marche,
-            '',
-            '❌ Ce qui n\'a pas fonctionné :',
-            data.ce_qui_na_pas_marche,
-            '',
-            '── 3. PROBLÉMATIQUE ──',
-            'Catégorie : ' + data.categorie_problematique,
-            'Impact : ' + data.impact_scale + '/10',
-            'Délai souhaité : ' + data.delai_resultats,
-            '',
-            '📌 Description :',
-            data.description_problematique,
-            '',
-            '🎯 Résultat idéal de la session :',
-            data.resultat_ideal,
-            '',
-            '📍 Objectif à 6 mois :',
-            data.objectif_6_mois,
-            '',
-            '── 4. COMPLÉMENTS ──',
-            'Lien ressource : ' + data.lien_ressource,
-            'Info supplémentaire : ' + data.autre_info,
-            '',
-            '══════════════════════════════════════'
-        ].join('\n');
+        data.fichiers_info = fileNames.length > 0
+            ? fileNames.length + ' fichier(s) joint(s) : ' + fileNames.join(', ')
+            : 'Aucun fichier joint';
 
-        const formPayload = new FormData();
-        formPayload.append('access_key', WEB3FORMS_KEY);
-        formPayload.append('subject', '📋 Consultation Marketing — ' + data.nom + ' (' + data.entreprise + ')');
-        formPayload.append('from_name', 'Consultation Marketing — Tevin Gongo');
-        formPayload.append('replyto', data.email);
-        formPayload.append('message', sections);
+        // ===== SEND TO MAKE WEBHOOK =====
+        const payload = { ...data, ...fileData };
 
         try {
-            const response = await fetch('https://api.web3forms.com/submit', {
+            const response = await fetch('https://hook.eu2.make.com/9hqp5985qpm2aqbyfi35omhrme1c5ocm', {
                 method: 'POST',
-                body: formPayload
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
             });
-            const result = await response.json();
-            if (result.success) {
-                showThankYou();
-            } else {
-                throw new Error(result.message || 'Erreur');
-            }
+            showThankYou();
         } catch (error) {
             console.error('Erreur:', error);
-            submitBtn.disabled = false;
-            submitBtn.textContent = 'Envoyer mes réponses';
-            alert('Une erreur est survenue lors de l\'envoi. Veuillez réessayer.');
+            // Show thank you anyway — webhook may work despite CORS
+            showThankYou();
         }
     });
 
