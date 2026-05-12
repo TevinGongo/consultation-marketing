@@ -1,0 +1,1455 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consultation Marketing — Tevin Gongo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0F0F0F;
+            --bg-secondary: #1A1A1A;
+            --bg-card: #141414;
+            --bg-input: #1E1E1E;
+            --border-subtle: #2A2A2A;
+            --border-focus: #C9A96E;
+            --gold: #C9A96E;
+            --gold-light: #D4B97A;
+            --gold-muted: rgba(201, 169, 110, 0.15);
+            --gold-glow: rgba(201, 169, 110, 0.08);
+            --text-primary: #F2F0EB;
+            --text-secondary: #9A9590;
+            --text-muted: #6B6560;
+            --white: #FFFFFF;
+            --red-subtle: #8B3A3A;
+            --green-subtle: #3A6B4A;
+            --font-display: 'Cormorant Garamond', Georgia, serif;
+            --font-body: 'Outfit', -apple-system, sans-serif;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-weight: 300;
+            line-height: 1.7;
+            font-size: 15px;
+        }
+
+        /* ===== HERO / HEADER ===== */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 60px 24px;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: 
+                radial-gradient(ellipse 80% 60% at 50% 0%, rgba(201, 169, 110, 0.06) 0%, transparent 70%),
+                radial-gradient(ellipse 60% 40% at 50% 100%, rgba(201, 169, 110, 0.03) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .hero-line {
+            width: 1px;
+            height: 60px;
+            background: linear-gradient(to bottom, transparent, var(--gold), transparent);
+            margin-bottom: 40px;
+            animation: fadeInDown 1s ease-out 0.2s both;
+        }
+
+        .hero-badge {
+            font-family: var(--font-body);
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 32px;
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+        }
+
+        .hero h1 {
+            font-family: var(--font-display);
+            font-size: clamp(36px, 6vw, 64px);
+            font-weight: 400;
+            line-height: 1.15;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+            animation: fadeInUp 0.8s ease-out 0.6s both;
+        }
+
+        .hero h1 em {
+            font-style: italic;
+            color: var(--gold);
+        }
+
+        .hero-subtitle {
+            font-family: var(--font-display);
+            font-size: clamp(18px, 2.5vw, 24px);
+            font-weight: 400;
+            color: var(--text-secondary);
+            margin-bottom: 48px;
+            animation: fadeInUp 0.8s ease-out 0.8s both;
+        }
+
+        .hero-author {
+            font-size: 13px;
+            font-weight: 400;
+            color: var(--text-muted);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            animation: fadeInUp 0.8s ease-out 1s both;
+        }
+
+        .hero-author span {
+            color: var(--gold);
+            font-weight: 500;
+        }
+
+        .hero-scroll {
+            position: absolute;
+            bottom: 32px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-muted);
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            animation: fadeInUp 0.8s ease-out 1.2s both;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .hero-scroll .arrow {
+            width: 20px;
+            height: 20px;
+            border-right: 1px solid var(--gold);
+            border-bottom: 1px solid var(--gold);
+            transform: rotate(45deg);
+            animation: bounceDown 2s ease-in-out infinite;
+        }
+
+        /* ===== INTRO SECTION ===== */
+        .intro-section {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 80px 24px;
+            position: relative;
+        }
+
+        .intro-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 1px;
+            background: var(--gold);
+        }
+
+        .intro-block {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 2px;
+            padding: 48px 40px;
+            position: relative;
+        }
+
+        .intro-block::before {
+            content: '"';
+            position: absolute;
+            top: 20px;
+            left: 28px;
+            font-family: var(--font-display);
+            font-size: 80px;
+            color: var(--gold-muted);
+            line-height: 1;
+        }
+
+        .intro-block p {
+            color: var(--text-secondary);
+            font-size: 14.5px;
+            line-height: 1.85;
+            margin-bottom: 20px;
+        }
+
+        .intro-block p:last-child {
+            margin-bottom: 0;
+        }
+
+        .intro-block strong {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .intro-highlight {
+            border-left: 2px solid var(--gold);
+            padding-left: 20px;
+            margin: 28px 0;
+        }
+
+        .intro-highlight p {
+            color: var(--gold-light) !important;
+            font-style: italic;
+            font-size: 15px !important;
+        }
+
+        .intro-confidential {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-top: 28px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border-subtle);
+        }
+
+        .intro-confidential .icon-lock {
+            width: 16px;
+            height: 16px;
+            flex-shrink: 0;
+            margin-top: 3px;
+            color: var(--gold);
+        }
+
+        .intro-confidential p {
+            font-size: 13px !important;
+            color: var(--text-muted) !important;
+            margin-bottom: 0 !important;
+        }
+
+        /* ===== FORM CONTAINER ===== */
+        .form-container {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 0 24px 120px;
+        }
+
+        /* ===== SECTIONS ===== */
+        .form-section {
+            margin-bottom: 64px;
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .form-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 36px;
+        }
+
+        .section-number {
+            font-family: var(--font-display);
+            font-size: 40px;
+            font-weight: 300;
+            color: var(--gold);
+            line-height: 1;
+            min-width: 40px;
+        }
+
+        .section-divider {
+            flex: 1;
+            height: 1px;
+            background: var(--border-subtle);
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: 26px;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        /* ===== FORM FIELDS ===== */
+        .field-group {
+            margin-bottom: 28px;
+        }
+
+        .field-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 600px) {
+            .field-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        label {
+            display: block;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            letter-spacing: 0.3px;
+        }
+
+        label .required {
+            color: var(--gold);
+            margin-left: 2px;
+        }
+
+        label .optional-tag {
+            font-weight: 300;
+            color: var(--text-muted);
+            font-size: 11px;
+            margin-left: 6px;
+        }
+
+        .field-hint {
+            font-size: 12.5px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            line-height: 1.6;
+            font-style: italic;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="url"],
+        textarea,
+        select {
+            width: 100%;
+            background: var(--bg-input);
+            border: 1px solid var(--border-subtle);
+            border-radius: 2px;
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            font-size: 14px;
+            font-weight: 300;
+            padding: 14px 16px;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            outline: none;
+        }
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+            border-color: var(--gold);
+            box-shadow: 0 0 0 3px var(--gold-glow);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        textarea.large {
+            min-height: 150px;
+        }
+
+        select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%239A9590' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            padding-right: 40px;
+            cursor: pointer;
+        }
+
+        select option {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+        }
+
+        /* ===== RADIO & CHECKBOX ===== */
+        .choice-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .choice-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 16px;
+            background: var(--bg-input);
+            border: 1px solid var(--border-subtle);
+            border-radius: 2px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+
+        .choice-item:hover {
+            border-color: var(--gold);
+            background: rgba(201, 169, 110, 0.04);
+        }
+
+        .choice-item input[type="radio"],
+        .choice-item input[type="checkbox"] {
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border: 1.5px solid var(--text-muted);
+            background: transparent;
+            flex-shrink: 0;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            position: relative;
+        }
+
+        .choice-item input[type="radio"] {
+            border-radius: 50%;
+        }
+
+        .choice-item input[type="checkbox"] {
+            border-radius: 2px;
+        }
+
+        .choice-item input[type="radio"]:checked,
+        .choice-item input[type="checkbox"]:checked {
+            border-color: var(--gold);
+            background: var(--gold);
+        }
+
+        .choice-item input[type="radio"]:checked::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--bg-primary);
+        }
+
+        .choice-item input[type="checkbox"]:checked::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 12px;
+            color: var(--bg-primary);
+            font-weight: 700;
+        }
+
+        .choice-item.selected {
+            border-color: var(--gold);
+            background: var(--gold-glow);
+        }
+
+        .choice-item label {
+            font-size: 14px;
+            font-weight: 400;
+            color: var(--text-secondary);
+            margin-bottom: 0;
+            cursor: pointer;
+            flex: 1;
+        }
+
+        /* ===== SCALE RATING ===== */
+        .scale-group {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .scale-item {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-input);
+            border: 1px solid var(--border-subtle);
+            border-radius: 2px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 400;
+            color: var(--text-secondary);
+            transition: all 0.25s ease;
+        }
+
+        .scale-item:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        .scale-item.selected {
+            background: var(--gold);
+            border-color: var(--gold);
+            color: var(--bg-primary);
+            font-weight: 600;
+        }
+
+        .scale-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 8px;
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        /* ===== SOCIAL FIELDS ===== */
+        .social-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        @media (max-width: 600px) {
+            .social-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .social-field {
+            position: relative;
+        }
+
+        .social-field label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .social-icon {
+            width: 14px;
+            height: 14px;
+            opacity: 0.5;
+        }
+
+        /* ===== FILE UPLOAD ===== */
+        .upload-zone {
+            border: 1.5px dashed var(--border-subtle);
+            border-radius: 2px;
+            padding: 40px 24px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .upload-zone:hover {
+            border-color: var(--gold);
+            background: var(--gold-glow);
+        }
+
+        .upload-zone input[type="file"] {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .upload-icon {
+            width: 32px;
+            height: 32px;
+            margin: 0 auto 12px;
+            color: var(--gold);
+        }
+
+        .upload-text {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 4px;
+        }
+
+        .upload-hint {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .upload-files-list {
+            margin-top: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .upload-file-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 14px;
+            background: var(--bg-input);
+            border: 1px solid var(--border-subtle);
+            border-radius: 2px;
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .upload-file-item .remove-file {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 16px;
+            padding: 0 4px;
+            transition: color 0.2s;
+        }
+
+        .upload-file-item .remove-file:hover {
+            color: var(--red-subtle);
+        }
+
+        /* ===== WARNING BANNER ===== */
+        .warning-banner {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 20px 24px;
+            background: var(--gold-glow);
+            border: 1px solid rgba(201, 169, 110, 0.2);
+            border-radius: 2px;
+            margin: 40px 0 32px;
+        }
+
+        .warning-banner .warning-icon {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+            color: var(--gold);
+            margin-top: 1px;
+        }
+
+        .warning-banner p {
+            font-size: 13.5px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* ===== CONDITIONAL REMINDER ===== */
+        .conditional-reminder {
+            display: none;
+            padding: 14px 18px;
+            background: var(--gold-glow);
+            border-left: 2px solid var(--gold);
+            margin-top: 12px;
+            font-size: 13px;
+            color: var(--gold-light);
+            line-height: 1.6;
+        }
+
+        .conditional-reminder.show {
+            display: block;
+            animation: fadeInUp 0.4s ease-out;
+        }
+
+        /* ===== SUBMIT BUTTON ===== */
+        .submit-section {
+            text-align: center;
+            padding-top: 20px;
+        }
+
+        .submit-btn {
+            font-family: var(--font-body);
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--bg-primary);
+            background: var(--gold);
+            border: none;
+            padding: 18px 56px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .submit-btn::after {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .submit-btn:hover {
+            background: var(--gold-light);
+            transform: translateY(-1px);
+            box-shadow: 0 8px 24px rgba(201, 169, 110, 0.2);
+        }
+
+        .submit-btn:hover::after {
+            left: 100%;
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* ===== PROGRESS BAR ===== */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 2px;
+            background: var(--gold);
+            z-index: 1000;
+            transition: width 0.3s ease;
+        }
+
+        /* ===== THANK YOU PAGE ===== */
+        .thank-you-page {
+            display: none;
+            min-height: 100vh;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 60px 24px;
+        }
+
+        .thank-you-page.show {
+            display: flex;
+        }
+
+        .thank-you-check {
+            width: 64px;
+            height: 64px;
+            border: 2px solid var(--gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 32px;
+            animation: scaleIn 0.5s ease-out;
+        }
+
+        .thank-you-check svg {
+            width: 28px;
+            height: 28px;
+            color: var(--gold);
+        }
+
+        .thank-you-page h2 {
+            font-family: var(--font-display);
+            font-size: 36px;
+            font-weight: 400;
+            color: var(--text-primary);
+            margin-bottom: 24px;
+        }
+
+        .thank-you-page p {
+            font-size: 15px;
+            color: var(--text-secondary);
+            max-width: 520px;
+            line-height: 1.8;
+            margin-bottom: 16px;
+        }
+
+        .thank-you-signature {
+            margin-top: 40px;
+            font-family: var(--font-display);
+            font-size: 22px;
+            font-style: italic;
+            color: var(--gold);
+        }
+
+        /* ===== FOOTER ===== */
+        .form-footer {
+            text-align: center;
+            padding: 40px 24px;
+            border-top: 1px solid var(--border-subtle);
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes bounceDown {
+            0%, 100% { transform: rotate(45deg) translateY(0); }
+            50% { transform: rotate(45deg) translateY(6px); }
+        }
+
+        @keyframes scaleIn {
+            from { opacity: 0; transform: scale(0.5); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 600px) {
+            .intro-block {
+                padding: 36px 24px;
+            }
+            .intro-block::before {
+                font-size: 60px;
+                top: 12px;
+                left: 16px;
+            }
+            .section-number {
+                font-size: 32px;
+            }
+            .section-title {
+                font-size: 22px;
+            }
+            .scale-group {
+                gap: 6px;
+            }
+            .scale-item {
+                width: 40px;
+                height: 40px;
+                font-size: 13px;
+            }
+            .submit-btn {
+                width: 100%;
+                padding: 18px 32px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- PROGRESS BAR -->
+<div class="progress-bar" id="progressBar"></div>
+
+<!-- ============================== -->
+<!-- HERO -->
+<!-- ============================== -->
+<section class="hero" id="heroSection">
+    <div class="hero-line"></div>
+    <div class="hero-badge">Préparation de session</div>
+    <h1>Consultation <em>Marketing</em></h1>
+    <p class="hero-subtitle">Préparons ensemble une session à la hauteur de vos ambitions</p>
+    <p class="hero-author">avec <span>Tevin Gongo</span></p>
+    <a href="#introSection" class="hero-scroll">
+        Commencer
+        <div class="arrow"></div>
+    </a>
+</section>
+
+<!-- ============================== -->
+<!-- INTRO -->
+<!-- ============================== -->
+<section class="intro-section" id="introSection">
+    <div class="intro-block">
+        <p>Vous avez réservé votre <strong>Consultation Marketing</strong> avec Tevin Gongo. C'est une décision qui mérite d'être honorée avec le plus grand sérieux.</p>
+
+        <p>Pour que cette session soit à la hauteur de vos attentes et que chaque minute soit consacrée à résoudre votre problématique concrète, je vous invite à compléter ce questionnaire avec attention.</p>
+
+        <div class="intro-highlight">
+            <p>Les solutions proposées lors de nos sessions se veulent concrètes et réalistes. Les principes de marketing sont souvent plus simples que ce que l'on pense — la vraie difficulté réside dans l'implémentation.</p>
+        </div>
+
+        <p>Notre objectif est clair : vous aider à résoudre une problématique marketing concrète. L'IA est souvent vendue comme le bouton magique qui résout tout. <strong>Laissons ces fausses promesses à vos concurrents.</strong></p>
+        
+        <p>Notre focus, c'est votre stratégie marketing. Nous identifierons ensemble les leviers les plus efficaces pour votre situation, et lorsque l'IA peut accélérer ou faciliter la mise en œuvre, nous l'utiliserons. Mais l'IA reste un outil au service de votre stratégie — <strong>jamais un substitut à une réflexion marketing solide</strong>.</p>
+        
+        <p>Mon objectif est aussi que vous compreniez ce qui doit être fait, pourquoi, et comment. De cette manière, vous saurez utiliser l'IA là où elle a un vrai impact — sans tomber dans le piège du <em>"il suffit de cliquer sur un bouton pour que la magie opère."</em></p>
+        
+        <p>Vos réponses me permettront de préparer une analyse approfondie de votre situation avant notre échange. Plus vos réponses seront précises et documentées, plus notre session sera impactante.</p>
+
+        <div class="intro-confidential">
+            <svg class="icon-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            <p>Toutes les informations partagées sont traitées avec la plus stricte confidentialité et le plus grand respect pour votre entreprise.</p>
+        </div>
+    </div>
+</section>
+
+<!-- ============================== -->
+<!-- FORM -->
+<!-- ============================== -->
+<div class="form-container">
+<form id="consultationForm" novalidate>
+
+    <!-- ===== SECTION 1 : VOUS ET VOTRE ENTREPRISE ===== -->
+    <div class="form-section" data-section="1">
+        <div class="section-header">
+            <span class="section-number">01</span>
+            <div class="section-divider"></div>
+        </div>
+        <h2 class="section-title">Vous et votre entreprise</h2>
+        <br>
+
+        <div class="field-row">
+            <div class="field-group">
+                <label>Nom et prénom <span class="required">*</span></label>
+                <input type="text" name="nom" required placeholder="Votre nom complet">
+            </div>
+            <div class="field-group">
+                <label>Adresse email <span class="required">*</span></label>
+                <input type="email" name="email" required placeholder="votre@email.com">
+            </div>
+        </div>
+
+        <div class="field-row">
+            <div class="field-group">
+                <label>Nom de votre entreprise <span class="required">*</span></label>
+                <input type="text" name="entreprise" required placeholder="Nom de l'entreprise">
+            </div>
+            <div class="field-group">
+                <label>Secteur d'activité <span class="required">*</span></label>
+                <select name="secteur" required>
+                    <option value="" disabled selected>Sélectionnez votre secteur</option>
+                    <option value="therapeute">Thérapeute</option>
+                    <option value="medecin">Médecin / Professionnel de santé</option>
+                    <option value="avocat">Avocat / Juriste</option>
+                    <option value="coach">Coach</option>
+                    <option value="consultant">Consultant</option>
+                    <option value="formateur">Formateur / Enseignant</option>
+                    <option value="commercant">Commerçant</option>
+                    <option value="artisan">Artisan</option>
+                    <option value="prestataire">Prestataire de services</option>
+                    <option value="immobilier">Immobilier</option>
+                    <option value="beaute">Beauté / Bien-être</option>
+                    <option value="restauration">Restauration / Hôtellerie</option>
+                    <option value="autre">Autre</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="field-group" id="secteurAutreGroup" style="display:none;">
+            <label>Précisez votre secteur d'activité <span class="required">*</span></label>
+            <input type="text" name="secteur_autre" placeholder="Décrivez votre secteur">
+        </div>
+
+        <div class="field-group">
+            <label>Quel est le produit ou service principal que vous vendez ? <span class="required">*</span></label>
+            <input type="text" name="produit_service" required placeholder="Décrivez brièvement votre offre principale">
+        </div>
+
+        <div class="field-group">
+            <label>Site web <span class="optional-tag">recommandé</span></label>
+            <input type="url" name="site_web" placeholder="https://www.votresite.com">
+        </div>
+
+        <div class="field-group">
+            <label>Réseaux sociaux <span class="optional-tag">recommandé</span></label>
+            <div class="social-grid">
+                <div class="social-field">
+                    <label>Instagram</label>
+                    <input type="url" name="instagram" placeholder="https://instagram.com/...">
+                </div>
+                <div class="social-field">
+                    <label>Facebook</label>
+                    <input type="url" name="facebook" placeholder="https://facebook.com/...">
+                </div>
+                <div class="social-field">
+                    <label>LinkedIn</label>
+                    <input type="url" name="linkedin" placeholder="https://linkedin.com/in/...">
+                </div>
+                <div class="social-field">
+                    <label>TikTok</label>
+                    <input type="url" name="tiktok" placeholder="https://tiktok.com/@...">
+                </div>
+            </div>
+        </div>
+
+        <div class="field-row">
+            <div class="field-group">
+                <label>Depuis combien de temps votre entreprise existe-t-elle ? <span class="required">*</span></label>
+                <select name="anciennete" required>
+                    <option value="" disabled selected>Sélectionnez</option>
+                    <option value="moins_1_an">Moins d'un an</option>
+                    <option value="1_3_ans">1 à 3 ans</option>
+                    <option value="3_5_ans">3 à 5 ans</option>
+                    <option value="5_10_ans">5 à 10 ans</option>
+                    <option value="10_20_ans">10 à 20 ans</option>
+                    <option value="plus_20_ans">Plus de 20 ans</option>
+                </select>
+            </div>
+            <div class="field-group">
+                <label>Combien de personnes composent votre équipe ? <span class="required">*</span></label>
+                <select name="equipe" required>
+                    <option value="" disabled selected>Sélectionnez</option>
+                    <option value="solo">Je travaille seul(e)</option>
+                    <option value="2_5">2 à 5 personnes</option>
+                    <option value="6_10">6 à 10 personnes</option>
+                    <option value="plus_10">Plus de 10 personnes</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="field-group">
+            <label>En une ou deux phrases, décrivez votre client idéal</label>
+            <textarea name="client_ideal" placeholder="Qui sont vos meilleurs clients ? Quelles sont leurs caractéristiques ?"></textarea>
+        </div>
+    </div>
+
+    <!-- ===== SECTION 2 : VOTRE SITUATION ACTUELLE ===== -->
+    <div class="form-section" data-section="2">
+        <div class="section-header">
+            <span class="section-number">02</span>
+            <div class="section-divider"></div>
+        </div>
+        <h2 class="section-title">Votre situation actuelle</h2>
+        <br>
+
+        <div class="field-group">
+            <label>Comment décririez-vous la phase actuelle de votre entreprise ? <span class="required">*</span></label>
+            <div class="choice-group">
+                <label class="choice-item"><input type="radio" name="phase" value="lancement" required> En lancement</label>
+                <label class="choice-item"><input type="radio" name="phase" value="croissance"> En croissance</label>
+                <label class="choice-item"><input type="radio" name="phase" value="stagnation"> En stagnation</label>
+                <label class="choice-item"><input type="radio" name="phase" value="difficulte"> En difficulté</label>
+                <label class="choice-item"><input type="radio" name="phase" value="repositionnement"> En repositionnement</label>
+            </div>
+        </div>
+
+        <div class="field-group">
+            <label>Quels canaux utilisez-vous actuellement pour trouver des clients ? <span class="required">*</span></label>
+            <div class="choice-group">
+                <label class="choice-item"><input type="checkbox" name="canaux" value="bouche_a_oreille"> Bouche-à-oreille</label>
+                <label class="choice-item"><input type="checkbox" name="canaux" value="reseaux_sociaux"> Réseaux sociaux</label>
+                <label class="choice-item"><input type="checkbox" name="canaux" value="site_web"> Site web</label>
+                <label class="choice-item"><input type="checkbox" name="canaux" value="publicite"> Publicité en ligne</label>
+                <label class="choice-item"><input type="checkbox" name="canaux" value="email_marketing"> Email marketing</label>
+                <label class="choice-item"><input type="checkbox" name="canaux" value="partenariats"> Partenariats</label>
+                <label class="choice-item"><input type="checkbox" name="canaux" value="evenements"> Événements / Networking</label>
+                <label class="choice-item"><input type="checkbox" name="canaux" value="autre_canal"> Autre</label>
+            </div>
+        </div>
+
+        <div class="field-group">
+            <label>Parmi ces canaux, lequel vous apporte le plus de résultats aujourd'hui ?</label>
+            <input type="text" name="canal_principal" placeholder="Le canal le plus performant pour vous">
+        </div>
+
+        <div class="field-group">
+            <label>Qu'avez-vous déjà essayé qui a fonctionné avec succès ?</label>
+            <textarea name="ce_qui_a_marche" placeholder="Décrivez les actions, stratégies ou initiatives qui ont donné de bons résultats"></textarea>
+        </div>
+
+        <div class="field-group">
+            <label>Qu'avez-vous déjà essayé qui n'a pas fonctionné comme prévu ?</label>
+            <textarea name="ce_qui_na_pas_marche" placeholder="Décrivez les actions, stratégies ou initiatives qui n'ont pas donné les résultats espérés"></textarea>
+        </div>
+
+        <div class="field-group">
+            <label>Pouvez-vous indiquer une fourchette de chiffre d'affaires mensuel ? <span class="optional-tag">optionnel</span></label>
+            <p class="field-hint">Cette information reste strictement confidentielle. Elle me permet simplement de calibrer mes recommandations à votre réalité.</p>
+            <select name="chiffre_affaires">
+                <option value="" disabled selected>Sélectionnez</option>
+                <option value="moins_3000">Moins de 3 000 €</option>
+                <option value="3000_10000">3 000 € — 10 000 €</option>
+                <option value="10000_30000">10 000 € — 30 000 €</option>
+                <option value="plus_30000">Plus de 30 000 €</option>
+                <option value="prefere_ne_pas_repondre">Je préfère ne pas répondre</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- ===== SECTION 3 : VOTRE PROBLÉMATIQUE ===== -->
+    <div class="form-section" data-section="3">
+        <div class="section-header">
+            <span class="section-number">03</span>
+            <div class="section-divider"></div>
+        </div>
+        <h2 class="section-title">Votre problématique</h2>
+        <br>
+
+        <div class="field-group">
+            <label>Dans quelle catégorie se situe votre problématique ? <span class="required">*</span></label>
+            <div class="choice-group" id="categorieGroup">
+                <label class="choice-item"><input type="radio" name="categorie" value="trouver_clients" required> Trouver plus de clients</label>
+                <label class="choice-item"><input type="radio" name="categorie" value="tunnel_vente"> Structurer mon tunnel de vente</label>
+                <label class="choice-item"><input type="radio" name="categorie" value="reseaux_sociaux"> Optimiser ma présence sur les réseaux sociaux</label>
+                <label class="choice-item"><input type="radio" name="categorie" value="offre_positionnement"> Clarifier ou repositionner mon offre</label>
+                <label class="choice-item"><input type="radio" name="categorie" value="visibilite_seo"> Améliorer ma visibilité en ligne (SEO / référencement)</label>
+                <label class="choice-item"><input type="radio" name="categorie" value="autre_problematique"> Autre</label>
+            </div>
+
+            <!-- Conditional reminders -->
+            <div class="conditional-reminder" id="reminderSocial">
+                ℹ️ Merci de bien renseigner vos liens réseaux sociaux dans la section 1 afin que je puisse analyser votre présence actuelle avant notre session.
+            </div>
+            <div class="conditional-reminder" id="reminderSEO">
+                ℹ️ Merci de bien renseigner l'URL de votre site web dans la section 1 afin que je puisse examiner votre visibilité actuelle.
+            </div>
+        </div>
+
+        <div class="field-group">
+            <label>Décrivez en détail la problématique que vous souhaitez aborder lors de notre session <span class="required">*</span></label>
+            <p class="field-hint">Soyez le plus précis et détaillé possible. Plus je comprends votre situation en amont, plus notre échange sera productif et concret.</p>
+            <textarea class="large" name="description_problematique" required placeholder="Décrivez votre problématique, son contexte, depuis quand elle persiste, ce que vous avez déjà tenté..."></textarea>
+        </div>
+
+        <div class="field-group">
+            <label>Qu'avez-vous déjà tenté pour résoudre cette problématique ?</label>
+            <textarea name="tentatives_resolution" placeholder="Actions déjà entreprises, outils testés, stratégies tentées..."></textarea>
+        </div>
+
+        <div class="field-group">
+            <label>Quel serait pour vous LE résultat concret idéal à l'issue de notre session ? <span class="required">*</span></label>
+            <textarea name="resultat_ideal" required placeholder="Que devriez-vous avoir en main ou en tête à la fin de notre échange pour considérer cette session comme réussie ?"></textarea>
+        </div>
+
+        <div class="field-group">
+            <label>Sur une échelle de 1 à 10, à quel point cette problématique freine-t-elle votre croissance aujourd'hui ?</label>
+            <div class="scale-group" id="scaleGroup">
+                <div class="scale-item" data-value="1">1</div>
+                <div class="scale-item" data-value="2">2</div>
+                <div class="scale-item" data-value="3">3</div>
+                <div class="scale-item" data-value="4">4</div>
+                <div class="scale-item" data-value="5">5</div>
+                <div class="scale-item" data-value="6">6</div>
+                <div class="scale-item" data-value="7">7</div>
+                <div class="scale-item" data-value="8">8</div>
+                <div class="scale-item" data-value="9">9</div>
+                <div class="scale-item" data-value="10">10</div>
+            </div>
+            <div class="scale-labels">
+                <span>Impact faible</span>
+                <span>Impact critique</span>
+            </div>
+            <input type="hidden" name="impact_scale" id="impactScale">
+        </div>
+    </div>
+
+    <!-- ===== SECTION 4 : DOCUMENTS COMPLÉMENTAIRES ===== -->
+    <div class="form-section" data-section="4">
+        <div class="section-header">
+            <span class="section-number">04</span>
+            <div class="section-divider"></div>
+        </div>
+        <h2 class="section-title">Documents et informations complémentaires</h2>
+        <br>
+
+        <div class="field-group">
+            <label>Documents, captures d'écran ou fichiers à partager <span class="optional-tag">optionnel</span></label>
+            <p class="field-hint">Statistiques, captures d'écran, rapports, visuels publicitaires… tout élément factuel qui m'aiderait à mieux comprendre votre situation.</p>
+            <div style="padding: 24px; background: var(--bg-input); border: 1px solid var(--border-subtle); border-radius: 2px;">
+                <p style="font-size: 14px; color: var(--text-secondary); margin-bottom: 8px;">📎 Envoyez vos documents par email à :</p>
+                <p style="font-size: 15px; color: var(--gold); font-weight: 500;">tevingongo@gmail.com</p>
+                <p style="font-size: 12.5px; color: var(--text-muted); margin-top: 8px;">Mentionnez votre nom et "Consultation Marketing" en objet. Formats acceptés : PDF, images, documents Word/Excel.</p>
+            </div>
+        </div>
+
+        <div class="field-group">
+            <label>Lien vers un document ou une ressource à examiner <span class="optional-tag">optionnel</span></label>
+            <input type="url" name="lien_ressource" placeholder="https://...">
+        </div>
+
+        <div class="field-group">
+            <label>Y a-t-il autre chose que vous jugez important de me communiquer avant notre échange ?</label>
+            <textarea name="autre_info" placeholder="Toute information complémentaire qui pourrait être utile pour la préparation de notre session..."></textarea>
+        </div>
+    </div>
+
+    <!-- ===== WARNING + SUBMIT ===== -->
+    <div class="form-section" data-section="5">
+        <div class="warning-banner">
+            <svg class="warning-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            <p>Plus vos réponses sont détaillées et documentées, plus notre session sera productive et concrète. Si les informations fournies sont insuffisantes, il est possible que je vous recontacte avant la session pour compléter certains éléments.</p>
+        </div>
+
+        <div class="submit-section">
+            <button type="submit" class="submit-btn" id="submitBtn">Envoyer mes réponses</button>
+        </div>
+    </div>
+
+</form>
+</div>
+
+<!-- ============================== -->
+<!-- THANK YOU PAGE -->
+<!-- ============================== -->
+<div class="thank-you-page" id="thankYouPage">
+    <div class="thank-you-check">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+    </div>
+    <h2>Merci pour votre confiance</h2>
+    <p>Merci d'avoir pris le temps de compléter ce questionnaire avec soin. C'est le signe que vous prenez votre business au sérieux — et c'est exactement l'état d'esprit que je respecte.</p>
+    <p>Je m'engage à traiter votre entreprise et vos informations avec le plus grand professionnalisme. Je prépare votre session et je reviens vers vous très prochainement.</p>
+    <p>À très bientôt.</p>
+    <div class="thank-you-signature">Tevin Gongo</div>
+</div>
+
+<!-- ============================== -->
+<!-- FOOTER -->
+<!-- ============================== -->
+<footer class="form-footer" id="formFooter">
+    <p>© 2026 Tevin Gongo — Consultation Marketing. Tous droits réservés.</p>
+</footer>
+
+<script>
+    // ===== SCROLL REVEAL =====
+    const sections = document.querySelectorAll('.form-section');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, { threshold: 0.1 });
+    sections.forEach(s => observer.observe(s));
+
+    // ===== PROGRESS BAR =====
+    const progressBar = document.getElementById('progressBar');
+    window.addEventListener('scroll', () => {
+        const scrollTop = window.scrollY;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = (scrollTop / docHeight) * 100;
+        progressBar.style.width = progress + '%';
+    });
+
+    // ===== CHOICE ITEM VISUAL FEEDBACK =====
+    document.querySelectorAll('.choice-item').forEach(item => {
+        const input = item.querySelector('input');
+        input.addEventListener('change', () => {
+            if (input.type === 'radio') {
+                item.closest('.choice-group').querySelectorAll('.choice-item').forEach(ci => ci.classList.remove('selected'));
+            }
+            if (input.checked) {
+                item.classList.add('selected');
+            } else {
+                item.classList.remove('selected');
+            }
+        });
+    });
+
+    // ===== CONDITIONAL LOGIC: SECTEUR AUTRE =====
+    document.querySelector('select[name="secteur"]').addEventListener('change', function() {
+        const autreGroup = document.getElementById('secteurAutreGroup');
+        autreGroup.style.display = this.value === 'autre' ? 'block' : 'none';
+    });
+
+    // ===== CONDITIONAL LOGIC: CATEGORIE =====
+    document.querySelectorAll('input[name="categorie"]').forEach(radio => {
+        radio.addEventListener('change', function() {
+            document.getElementById('reminderSocial').classList.toggle('show', this.value === 'reseaux_sociaux');
+            document.getElementById('reminderSEO').classList.toggle('show', this.value === 'visibilite_seo');
+        });
+    });
+
+    // ===== SCALE RATING =====
+    document.querySelectorAll('.scale-item').forEach(item => {
+        item.addEventListener('click', function() {
+            document.querySelectorAll('.scale-item').forEach(si => si.classList.remove('selected'));
+            this.classList.add('selected');
+            document.getElementById('impactScale').value = this.dataset.value;
+        });
+    });
+
+    // ===== FORM SUBMISSION =====
+    document.getElementById('consultationForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        // Validate required fields
+        const requiredInputs = this.querySelectorAll('input[required]:not([type="radio"]), textarea[required], select[required]');
+        let isValid = true;
+        requiredInputs.forEach(field => {
+            if (!field.value.trim()) {
+                field.style.borderColor = '#8B3A3A';
+                isValid = false;
+            } else {
+                field.style.borderColor = '';
+            }
+        });
+
+        // Check radio groups
+        const radioGroups = ['phase', 'categorie'];
+        radioGroups.forEach(name => {
+            if (!this.querySelector(`input[name="${name}"]:checked`)) {
+                this.querySelectorAll(`input[name="${name}"]`).forEach(r => {
+                    r.closest('.choice-item').style.borderColor = '#8B3A3A';
+                });
+                isValid = false;
+            }
+        });
+
+        if (!isValid) {
+            const firstError = this.querySelector('[style*="8B3A3A"]');
+            if (firstError) firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            alert('Veuillez remplir tous les champs obligatoires (*).');
+            return;
+        }
+
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Envoi en cours...';
+
+        // Collect data as JSON
+        const canaux = Array.from(this.querySelectorAll('input[name="canaux"]:checked')).map(cb => {
+            const labels = { bouche_a_oreille: 'Bouche-à-oreille', reseaux_sociaux: 'Réseaux sociaux', site_web: 'Site web', publicite: 'Publicité en ligne', email_marketing: 'Email marketing', partenariats: 'Partenariats', evenements: 'Événements / Networking', autre_canal: 'Autre' };
+            return labels[cb.value] || cb.value;
+        });
+
+        const phaseLabels = { lancement: 'En lancement', croissance: 'En croissance', stagnation: 'En stagnation', difficulte: 'En difficulté', repositionnement: 'En repositionnement' };
+        const categorieLabels = { trouver_clients: 'Trouver plus de clients', tunnel_vente: 'Structurer mon tunnel de vente', reseaux_sociaux: 'Optimiser ma présence sur les réseaux sociaux', offre_positionnement: 'Clarifier ou repositionner mon offre', visibilite_seo: 'Améliorer ma visibilité en ligne (SEO / référencement)', autre_problematique: 'Autre' };
+
+        const phaseVal = this.querySelector('input[name="phase"]:checked')?.value || '';
+        const categorieVal = this.querySelector('input[name="categorie"]:checked')?.value || '';
+
+        const data = {
+            nom: this.nom.value,
+            email: this.email.value,
+            entreprise: this.entreprise.value,
+            secteur: this.secteur.value === 'autre' ? this.secteur_autre?.value || 'Autre' : this.secteur.options[this.secteur.selectedIndex]?.text || '',
+            produit_service: this.produit_service.value,
+            site_web: this.site_web.value || 'Non renseigné',
+            instagram: this.instagram.value || 'Non renseigné',
+            facebook: this.facebook.value || 'Non renseigné',
+            linkedin: this.linkedin.value || 'Non renseigné',
+            tiktok: this.tiktok.value || 'Non renseigné',
+            anciennete: this.anciennete.options[this.anciennete.selectedIndex]?.text || '',
+            equipe: this.equipe.options[this.equipe.selectedIndex]?.text || '',
+            client_ideal: this.client_ideal.value || 'Non renseigné',
+            phase: phaseLabels[phaseVal] || phaseVal,
+            canaux: canaux.length > 0 ? canaux.join(', ') : 'Non renseigné',
+            canal_principal: this.canal_principal.value || 'Non renseigné',
+            ce_qui_a_marche: this.ce_qui_a_marche.value || 'Non renseigné',
+            ce_qui_na_pas_marche: this.ce_qui_na_pas_marche.value || 'Non renseigné',
+            chiffre_affaires: this.chiffre_affaires.value ? this.chiffre_affaires.options[this.chiffre_affaires.selectedIndex]?.text : 'Non renseigné',
+            categorie_problematique: categorieLabels[categorieVal] || categorieVal,
+            description_problematique: this.description_problematique.value,
+            tentatives_resolution: this.tentatives_resolution.value || 'Non renseigné',
+            resultat_ideal: this.resultat_ideal.value,
+            impact_scale: document.getElementById('impactScale').value || 'Non renseigné',
+            lien_ressource: this.lien_ressource.value || 'Non renseigné',
+            autre_info: this.autre_info.value || 'Non renseigné',
+            date_soumission: new Date().toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' })
+        };
+
+        /*
+         * =============================================
+         * WEB3FORMS — Configuration rapide
+         * =============================================
+         * 1. Allez sur https://web3forms.com
+         * 2. Entrez tevingongo@gmail.com
+         * 3. Vous recevrez votre Access Key par email
+         * 4. Remplacez VOTRE_ACCESS_KEY ci-dessous
+         * 
+         * Gratuit : 250 soumissions/mois
+         * =============================================
+         */
+        const WEB3FORMS_KEY = 'f75ff122-923a-4a2a-a15d-e5fd41c065b4';
+
+        // Build formatted message
+        const sections = [
+            '══════════════════════════════════════',
+            '  CONSULTATION MARKETING — FICHE CLIENT',
+            '  Date : ' + data.date_soumission,
+            '══════════════════════════════════════',
+            '',
+            '── 1. INFORMATIONS GÉNÉRALES ──',
+            'Nom : ' + data.nom,
+            'Email : ' + data.email,
+            'Entreprise : ' + data.entreprise,
+            'Secteur : ' + data.secteur,
+            'Produit/Service : ' + data.produit_service,
+            'Ancienneté : ' + data.anciennete,
+            'Équipe : ' + data.equipe,
+            '',
+            'Site web : ' + data.site_web,
+            'Instagram : ' + data.instagram,
+            'Facebook : ' + data.facebook,
+            'LinkedIn : ' + data.linkedin,
+            'TikTok : ' + data.tiktok,
+            '',
+            'Client idéal : ' + data.client_ideal,
+            '',
+            '── 2. SITUATION ACTUELLE ──',
+            'Phase : ' + data.phase,
+            'Canaux : ' + data.canaux,
+            'Canal principal : ' + data.canal_principal,
+            'CA mensuel : ' + data.chiffre_affaires,
+            '',
+            '✅ Ce qui a fonctionné :',
+            data.ce_qui_a_marche,
+            '',
+            '❌ Ce qui n\'a pas fonctionné :',
+            data.ce_qui_na_pas_marche,
+            '',
+            '── 3. PROBLÉMATIQUE ──',
+            'Catégorie : ' + data.categorie_problematique,
+            'Impact : ' + data.impact_scale + '/10',
+            '',
+            '📌 Description :',
+            data.description_problematique,
+            '',
+            'Déjà tenté : ' + data.tentatives_resolution,
+            '',
+            '🎯 Résultat idéal :',
+            data.resultat_ideal,
+            '',
+            '── 4. COMPLÉMENTS ──',
+            'Lien ressource : ' + data.lien_ressource,
+            'Info supplémentaire : ' + data.autre_info,
+            '',
+            '══════════════════════════════════════'
+        ].join('\n');
+
+        const formPayload = new FormData();
+        formPayload.append('access_key', WEB3FORMS_KEY);
+        formPayload.append('subject', '📋 Consultation Marketing — ' + data.nom + ' (' + data.entreprise + ')');
+        formPayload.append('from_name', 'Consultation Marketing — Tevin Gongo');
+        formPayload.append('replyto', data.email);
+        formPayload.append('message', sections);
+
+        try {
+            const response = await fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                body: formPayload
+            });
+            const result = await response.json();
+            if (result.success) {
+                showThankYou();
+            } else {
+                throw new Error(result.message || 'Erreur');
+            }
+        } catch (error) {
+            console.error('Erreur:', error);
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Envoyer mes réponses';
+            alert('Une erreur est survenue lors de l\'envoi. Veuillez réessayer.');
+        }
+    });
+
+    function showThankYou() {
+        document.getElementById('consultationForm').style.display = 'none';
+        document.getElementById('heroSection').style.display = 'none';
+        document.getElementById('introSection').style.display = 'none';
+        document.querySelector('.form-container').style.display = 'none';
+        document.getElementById('formFooter').style.display = 'none';
+        document.getElementById('thankYouPage').classList.add('show');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+</script>
+
+</body>
+</html>
